@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f7f6;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --card: #ececea;
+    --line: #dcdcd8;
+    --gold: #e0b43a;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 1840px; margin: 0 auto; padding: 0 clamp(16px, 2.8vw, 52px); }
+
+  /* Hero */
+  header { text-align: center; padding: clamp(56px, 9vw, 120px) 0 clamp(48px, 7vw, 96px); }
+  h1 {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    font-weight: 900;
+    font-size: clamp(40px, 13vw, 190px);
+    line-height: .85;
+    letter-spacing: -.045em;
+  }
+  h1 svg {
+    position: absolute;
+    right: -.22em; bottom: -.02em;
+    width: .6em; height: .6em;
+  }
+  .sub {
+    margin: 32px auto 0;
+    max-width: 22ch;
+    font-size: clamp(18px, 1.5vw, 23px);
+    line-height: 1.35;
+  }
+  .meta {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: .02em;
+  }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px 20px;
+    padding-bottom: 140px;
+  }
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .card { display: block; }
+  .shot {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--card);
+  }
+  .shot img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    display: block;
+    transition: transform .6s cubic-bezier(.2,.7,.2,1);
+  }
+  .card:hover .shot img { transform: scale(1.04); }
+  .shot::after {
+    content: "Visit site ↗";
+    position: absolute; left: 16px; bottom: 16px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 13px; font-weight: 600;
+    opacity: 0; transform: translateY(8px);
+    transition: .25s ease;
+  }
+  .card:hover .shot::after { opacity: 1; transform: none; }
+  .badge {
+    position: absolute; top: 14px; right: 14px; z-index: 1;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: var(--ink); color: #fff;
+    font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  }
+
+  .info {
+    display: flex; align-items: baseline; flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-top: 18px;
+  }
+  .title { font-size: clamp(18px, 1.35vw, 22px); font-weight: 500; letter-spacing: -.01em; }
+  .by { font-size: 12px; color: var(--muted); }
+  .ver {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: clamp(18px, 1.35vw, 22px); font-weight: 500;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 1px;
+  }
+  .ver i {
+    display: grid; place-items: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--ink); color: #fff;
+    font-style: normal; font-size: 11px; font-weight: 700;
+    align-self: center;
+  }
+  .ver sup { font-size: 7px; font-weight: 700; letter-spacing: .05em; }
+  .details { margin-top: 8px; font-size: 13px; color: var(--muted); }
+  .details span + span::before { content: "·"; margin: 0 8px; }
+
+  /* Floating pill bar */
+  .dock {
+    position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    display: flex; gap: 6px;
+    padding: 6px;
+    border-radius: 12px;
+    background: #2b2b2b;
+    box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    z-index: 10;
+  }
+  .dock a {
+    display: grid; place-items: center;
+    height: 60px; padding: 0 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .dock .logo { width: 60px; padding: 0; background: #1a1a1a; color: #fff; font-weight: 900; font-size: 22px; }
+  .dock .ghost { color: #fff; border: 1px solid #6a6a6a; height: 44px; align-self: center; }
+  .dock .solid { background: #ececea; }
+  .dock a:hover { filter: brightness(1.12); }
+
+  .top {
+    position: fixed; left: 24px; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    display: grid; place-items: center;
+    width: 60px; height: 60px; border-radius: 6px;
+    background: #1a1a1a; color: #fff;
+    z-index: 10;
+    opacity: 0; pointer-events: none; transition: opacity .25s;
+  }
+  .top.show { opacity: 1; pointer-events: auto; }
+  @media (max-width: 640px) {
+    .top { display: none; }
+    .dock a { height: 48px; padding: 0 14px; }
+    .dock .logo { width: 48px; }
+    .dock .ghost { height: 36px; }
+  }
+
+  footer { text-align: center; padding: 0 0 130px; font-size: 14px; color: var(--muted); }
+  footer b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="top">
+  <header>
+    <h1>NOMINEES
+      <svg viewBox="0 0 64 64" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round" aria-hidden="true">
+        <path d="M20 58c-9-8-13-20-9-34M44 58c9-8 13-20 9-34"/>
+        <g fill="var(--gold)" stroke="none">
+          <ellipse cx="9" cy="22" rx="3" ry="6" transform="rotate(-20 9 22)"/>
+          <ellipse cx="8" cy="34" rx="3" ry="6" transform="rotate(-50 8 34)"/>
+          <ellipse cx="12" cy="45" rx="3" ry="6" transform="rotate(-70 12 45)"/>
+          <ellipse cx="55" cy="22" rx="3" ry="6" transform="rotate(20 55 22)"/>
+          <ellipse cx="56" cy="34" rx="3" ry="6" transform="rotate(50 56 34)"/>
+          <ellipse cx="52" cy="45" rx="3" ry="6" transform="rotate(70 52 45)"/>
+        </g>
+      </svg>
+    </h1>
+    <p class="sub">Every website design in this folder, side by side</p>
+    <p class="meta" id="count"></p>
+  </header>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>Add a site: drop it in <b>sites/</b>, run <b>scripts/snapshot.ps1</b>, add one entry to <b>SITES</b> in index.html.</footer>
+</div>
+
+<a class="top" id="toTop" href="#top" aria-label="Back to top">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20V4M5 11l7-7 7 7"/></svg>
+</a>
+
+<nav class="dock">
+  <a class="logo" href="#top">W.</a>
+  <a class="ghost" href="#grid">Nominees</a>
+  <a class="solid" id="latest" href="#" target="_blank" rel="noopener">Visit latest</a>
+</nav>
+
+<script>
+  // One entry per site. file = path in sites/, shot = path in snapshots/.
+  // Newest first; the first entry is tagged "Latest" and linked from the dock.
+  const SITES = [
+    { id: "v4", title: "NASDrive PRO — Photo Hero",    by: "NASDrive", date: "Sep 24, 19:27", size: "5.3 MB",
+      file: "sites/v4-nasdrive-pro-website.html", shot: "snapshots/v4.png" },
+    { id: "v3", title: "NASDrive PRO — Dark Showcase", by: "NASDrive", date: "Sep 24, 18:09", size: "540 KB",
+      file: "sites/v3-nasdrive-pro-website.html", shot: "snapshots/v3.png" },
+    { id: "v2", title: "NASDrive PRO — Light Mockup",  by: "NASDrive", date: "Sep 24, 16:50", size: "527 KB",
+      file: "sites/v2-nasdrive-pro-website.html", shot: "snapshots/v2.png" },
+    { id: "v1", title: "NASDrive PRO — Original",      by: "NASDrive", date: "Sep 24, 14:50", size: "215 KB",
+      file: "sites/v1-nasdrive-pro.html",         shot: "snapshots/v1.png" },
+  ];
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  document.getElementById("grid").innerHTML = SITES.map((s, i) => `
+    <a class="card" href="${esc(s.file)}" target="_blank" rel="noopener">
+      <div class="shot">
+        ${i === 0 ? '<span class="badge">Latest</span>' : ""}
+        <img src="${esc(s.shot)}" alt="${esc(s.title)} screenshot" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="title">${esc(s.title)}</span>
+        <span class="by">by</span>
+        <span class="ver"><i>${esc(s.id.toUpperCase())}</i>${esc(s.by)}<sup>PRO</sup></span>
+      </div>
+      <div class="details"><span>${esc(s.date)}</span><span>${esc(s.size)}</span><span>${esc(s.file.split("/").pop())}</span></div>
+    </a>`).join("");
+
+  document.getElementById("count").textContent = `${SITES.length} websites`;
+  if (SITES[0]) document.getElementById("latest").href = SITES[0].file;
+
+  const toTop = document.getElementById("toTop");
+  addEventListener("scroll", () => toTop.classList.toggle("show", scrollY > 400), { passive: true });
+</script>
+</body>
+</html>
